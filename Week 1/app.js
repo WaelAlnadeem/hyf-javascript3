@@ -12,37 +12,24 @@ function main() {
     const details = createAndAppend('div', main, { class: 'details' });
     const contributor = createAndAppend('div', main, { class: 'contributor' });
 
-    const newData = {};
+    let repos;
     fetchJSON(APIUrl, function (error, data) {
         if (error) {
             root.innerHTML = error.message;
             return;
         }
-        data.forEach(function (element) {
-            newData[element.name] = {
-                name: element.name,
-                description: element.description,
-                forks: element.forks,
-                updatedAt: element.updated_at,
-                contribute: element.url,
-                gitHubAdress: element.html_url,
-            };
+        repos = data;
+        repos.forEach((repo, index) => {
+            createAndAppend('option', select, { html: repo.name, value: index });
         });
-        const keysOfData = Object.keys(newData);
-        keysOfData.forEach(element => {
-            const option = document.createElement('option');
-            option.innerHTML = element;
-            option.value = element;
-            select.appendChild(option);
-        });
-        result(newData[select.selectedOptions[0].innerText]);
+        render(repos[0]);
     });
 
-    select.addEventListener('change', event => {
-        const repoName = event.target.value;
+    select.addEventListener('change', () => {
+        const index = select.value;
         details.innerHTML = '';
         contributor.innerHTML = '';
-        result(newData[repoName]);
+        render(repos[index]);
     });
 }
 
@@ -77,36 +64,33 @@ function fetchJSON(url, cb) {
     xhr.send();
 }
 
-function result(repoData) {
+function render(repoData) {
     const details = document.querySelector('.details');
     const contributor = document.querySelector('.contributor');
     const contributions = document.createElement('h2');
     contributor.appendChild(contributions);
     contributions.innerHTML = "contributions";
     const detailsText = document.createElement('p');
-    detailsText.innerHTML = 'name : <a href = "' + repoData.gitHubAdress + '">  ' + repoData.name + ' </a><br>' + 'description : ' + repoData.description + '<br>' + 'forks : ' + repoData.forks + '<br>' + 'updated : ' + repoData.updatedAt;
+    detailsText.innerHTML = 'name : <a href = "' + repoData.gitHubAdress + '">  ' + repoData.name + ' </a><br>' + 'description : ' + repoData.description + '<br>' + 'forks : ' + repoData.forks + '<br>' + 'updated : ' + repoData.updated_at;
     detailsText.className = "detailsText";
     details.appendChild(detailsText);
-    fetchJSON(repoData.contribute, function (error, data) {
-        fetchJSON(data.contributors_url, function (error, data) {
-            for (let i = 0; i < data.length; i++) {
-                const img = document.createElement('img');
-                img.setAttribute('src', data[i].avatar_url);
-                img.setAttribute("class", "Img");
-                contributor.appendChild(img);
-                const contribution = document.createElement('p');
-                contribution.className = "contribution";
-                contribution.innerHTML = data[i].contributions;
-                contribution.className = "contribution";
-                contributor.appendChild(contribution);
-                const login = document.createElement('h3');
-                login.className = "login";
-                login.innerHTML = data[i].login;
-                contributor.appendChild(login);
+    fetchJSON(repoData.contributors_url, function (error, data) {
+        for (let i = 0; i < data.length; i++) {
+            const img = document.createElement('img');
+            img.setAttribute('src', data[i].avatar_url);
+            img.setAttribute("class", "Img");
+            contributor.appendChild(img);
+            const contribution = document.createElement('p');
+            contribution.className = "contribution";
+            contribution.innerHTML = data[i].contributions;
+            contribution.className = "contribution";
+            contributor.appendChild(contribution);
+            const login = document.createElement('h3');
+            login.className = "login";
+            login.innerHTML = data[i].login;
+            contributor.appendChild(login);
 
-            }
-        });
+        }
     });
-
 }
 window.onload = main;
