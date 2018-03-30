@@ -73,7 +73,7 @@ function result(repoData) {
     contributor.appendChild(contributions);
     contributions.innerHTML = "contributions";
     const detailsText = document.createElement('p');
-    detailsText.innerHTML = 'name : <a href = "' + repoData.gitHubAdress + '">  ' + repoData.name + ' </a><br>' + 'description : ' + repoData.description + '<br>' + 'forks : ' + repoData.forks + '<br>' + 'updated :  ' + repoData.updatedAt;
+    detailsText.innerHTML = 'name : <a href = "' + repoData.gitHubAdress + '">  ' + repoData.name + ' </a><br>' + 'description : ' + repoData.description + '<br>' + 'forks : ' + repoData.forks + '<br>' + 'updated :  ' + repoData.updated_at;
     detailsText.className = "detailsText";
     details.appendChild(detailsText);
     fetchJSON(repoData.contributors_url)
