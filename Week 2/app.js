@@ -12,40 +12,25 @@ function main() {
     const details = createAndAppend('div', main, { class: 'details' });
     const contributor = createAndAppend('div', main, { class: 'contributor' });
 
-    const newData = {};
+    let repos;
     fetchJSON(APIUrl)
         .then(data => {
-            data.forEach(element => {
-                newData[element.name] = {
-                    name: element.name,
-                    description: element.description,
-                    forks: element.forks,
-                    updatedAt: element.updated_at,
-                    contribute: element.url,
-                    gitHubAdress: element.html_url,
-                };
+            repos = data;
+            repos.forEach((repo, index) => {
+                createAndAppend('option', select, { html: repo.name, value: index });
             });
-            const keysOfData = Object.keys(newData);
-            keysOfData.forEach(element => {
-                const option = document.createElement('option');
-                option.className = "option";
-                option.innerHTML = element;
-                option.value = element;
-                select.appendChild(option);
-            });
-            return (newData[select.selectedOptions[0].innerText]);
         })
-        .then(data => { result(data); })
+        .then(() => { result(repos[0]); })
         .catch(err => {
             root.innerHTML = err.message;
             alert("err.message");
         });
 
-    select.addEventListener('change', event => {
-        const repoName = event.target.value;
+    select.addEventListener('change', () => {
+        const index = select.value;
         details.innerHTML = '';
         contributor.innerHTML = '';
-        result(newData[repoName]);
+        result(repos[index]);
     });
 }
 
@@ -91,26 +76,23 @@ function result(repoData) {
     detailsText.innerHTML = 'name : <a href = "' + repoData.gitHubAdress + '">  ' + repoData.name + ' </a><br>' + 'description : ' + repoData.description + '<br>' + 'forks : ' + repoData.forks + '<br>' + 'updated :  ' + repoData.updatedAt;
     detailsText.className = "detailsText";
     details.appendChild(detailsText);
-    fetchJSON(repoData.contribute)
+    fetchJSON(repoData.contributors_url)
         .then(data => {
-            fetchJSON(data.contributors_url)
-                .then(data => {
-                    for (let i = 0; i < data.length; i++) {
-                        const img = document.createElement('img');
-                        img.setAttribute('src', data[i].avatar_url);
-                        img.setAttribute("class", "Img");
-                        contributor.appendChild(img);
-                        const contribution = document.createElement('p');
-                        contribution.className = "contribution";
-                        contribution.innerHTML = data[i].contributions;
-                        contribution.className = "contribution";
-                        contributor.appendChild(contribution);
-                        const login = document.createElement('h3');
-                        login.className = "login";
-                        login.innerHTML = data[i].login;
-                        contributor.appendChild(login);
-                    }
-                });
+            for (let i = 0; i < data.length; i++) {
+                const img = document.createElement('img');
+                img.setAttribute('src', data[i].avatar_url);
+                img.setAttribute("class", "Img");
+                contributor.appendChild(img);
+                const contribution = document.createElement('p');
+                contribution.className = "contribution";
+                contribution.innerHTML = data[i].contributions;
+                contribution.className = "contribution";
+                contributor.appendChild(contribution);
+                const login = document.createElement('h3');
+                login.className = "login";
+                login.innerHTML = data[i].login;
+                contributor.appendChild(login);
+            }
         })
         .catch(err => {
             root.innerHTML = err.message;
