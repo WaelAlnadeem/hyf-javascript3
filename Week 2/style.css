@@ -1,32 +1,37 @@
-*{
-	box-sizing:border-box;
+* {
+    box-sizing: border-box;
+}
 
+body {
+    width: 90%;
+    margin: 0 auto;
+    background-color: #e9ebee;
 }
-body{
-        width: 90%;
-        margin: 0 auto;  
-        background-color: #e9ebee;
-}
-.contributor{
+
+.contributor {
     color: black;
     width: 48%;
     background-color: white;
-    border-radius: 15px;  
-    padding-left: 15px; 
+    border-radius: 15px;
+    padding-left: 15px;
 }
-.Img{
+
+.Img {
     width: 12%;
     height: 60px;
 }
-.login{
+
+.login {
     float: right;
-    width:  68%;
+    width: 68%;
 }
-.main{
+
+.main {
     display: flex;
     width: 100%;
 }
-.contribution{
+
+.contribution {
     display: block;
     float: right;
     width: 8%;
@@ -36,37 +41,43 @@ body{
     margin-right: 11px;
     border-radius: 15px;
 }
-.details{
-        width: 50%;
+
+.details {
+    width: 50%;
 }
-.select{
+
+.select {
     width: 30%;
     margin: 20px;
     padding: 11px;
     height: 20%;
-    border-radius: 15px; 
+    border-radius: 15px;
 }
-.detailsText{
+
+.detailsText {
     background-color: white;
     width: 70%;
-    border-radius: 15px;  
+    border-radius: 15px;
     padding: 30px;
-    margin-top: 0;  
-    margin-left: 25px;   
+    margin-top: 0;
+    margin-left: 25px;
     font-size: 21px;
 }
-.header{
-    background-color: #4267b2;;
+
+.header {
+    background-color: #4267b2;
+    ;
     width: 100%;
     margin-bottom: 35px;
-   
 }
-.head{
- color: white;
- float: left;
- margin-left: 10px;
+
+.head {
+    color: white;
+    float: left;
+    margin-left: 10px;
 }
-a{
+
+a {
     text-decoration: none;
     font-style: italic;
     color: darkslateblue;
@@ -74,103 +85,98 @@ a{
 
 /* for Mobile */
 
-@media (max-width: 480px){
-    
-body{
-	width: 100%;
-	margin: 0 auto;
-	padding: 0;
+@media (max-width: 480px) {
+    body {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
     }
-
-.detailsText{
-    width: 100%; 
-    margin: 0 auto;   
-    font-size: 30px;
-}
-.details{
-    width: 100%;
-}
-.contributor{
-    width: 100%;
-}
-.main{
-    display: block;
-}
-.contribution{
-    font-size: 20px;  
-}
-.login{
-    font-size: 15px;
-}
-.Img{
-    width: 14%;
-    height: 70px;
-}
-.header{
-    display: grid;
-    padding: 37px;
-    background-color: #181717bf;
-}
-.head{
-    text-align: center;
-    font-size: 42px;
-    font-family: cursive;
-}
-.select{
-    width: 92%;
-    height: 82%;
-}
+    .detailsText {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 30px;
+    }
+    .details {
+        width: 100%;
+    }
+    .contributor {
+        width: 100%;
+    }
+    .main {
+        display: block;
+    }
+    .contribution {
+        font-size: 20px;
+    }
+    .login {
+        font-size: 15px;
+    }
+    .Img {
+        width: 14%;
+        height: 70px;
+    }
+    .header {
+        display: grid;
+        padding: 37px;
+        background-color: #181717bf;
+    }
+    .head {
+        text-align: center;
+        font-size: 42px;
+        font-family: cursive;
+    }
+    .select {
+        width: 92%;
+        height: 82%;
+    }
 }
 
 /* for tab */
 
-@media screen and (min-width: 481px) and (max-width: 768px){
-
- body{
-	width: 100%;
-	margin: 0 auto;
-	padding: 0;
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    body {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
     }
-.main{
-    display: block;
-}
-.detailsText{
-    width: 100%; 
-    margin: 0 auto;   
-    font-size: 30px;
-}
-.details{
-    width: 100%;
-}
-.contributor{
-    width: 100%;
-}
-.main{
-    display: block;
-
-}
-.contribution{
-    font-size: 20px;
-    
-}
-.login{
-    font-size: 20px;
-}
-.Img{
-    width: 19%;
-    height: 82px;
-}
-.header{
-    display: grid;
-    padding: 37px;
-}
-.head{
-    text-align: center;
-    font-size: 42px;
-    font-family: monospace;
-}
-.select{
-    width: 92%;
-    height: 82%;
-}
+    .main {
+        display: block;
+    }
+    .detailsText {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 30px;
+    }
+    .details {
+        width: 100%;
+    }
+    .contributor {
+        width: 100%;
+    }
+    .main {
+        display: block;
+    }
+    .contribution {
+        font-size: 20px;
+    }
+    .login {
+        font-size: 20px;
+    }
+    .Img {
+        width: 19%;
+        height: 82px;
+    }
+    .header {
+        display: grid;
+        padding: 37px;
+    }
+    .head {
+        text-align: center;
+        font-size: 42px;
+        font-family: monospace;
+    }
+    .select {
+        width: 92%;
+        height: 82%;
+    }
 }
