@@ -1,6 +1,24 @@
 'use strict';
 const APIUrl = 'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
 
+function sortList(element) {
+    const repoSort = new Array();
+    for (let i = 1; i < element.length; i++) {
+        repoSort[i - 1] =
+            element.options[i].text.toUpperCase() + "," +
+            element.options[i].text + "," +
+            element.options[i].value;
+    }
+
+    repoSort.sort();
+
+    for (let i = 1; i < element.length; i++) {
+        const parts = repoSort[i - 1].split(',');
+
+        element.options[i].text = parts[1];
+        element.options[i].value = parts[2];
+    }
+}
 
 async function main() {
     try {
@@ -12,23 +30,22 @@ async function main() {
         const main = createAndAppend('div', root, { class: 'main' });
         const details = createAndAppend('div', main, { class: 'details' });
         const contributor = createAndAppend('div', main, { class: 'contributor' });
-
         let repos;
-        const data = await fetchJSON(APIUrl)
+        const data = await fetchJSON(APIUrl);
         repos = data;
         repos.forEach((repo, index) => {
             createAndAppend('option', select, { html: repo.name, value: index });
-        })
 
+        });
         render(repos[0]);
-
-
+        sortList(select);
         select.addEventListener('change', () => {
             const index = select.value;
             details.innerHTML = '';
             contributor.innerHTML = '';
             render(repos[index]);
         });
+
     }
 
     catch (err) {
@@ -78,10 +95,10 @@ async function render(repoData) {
         contributor.appendChild(contributions);
         contributions.innerHTML = "contributions";
         const detailsText = document.createElement('p');
-        detailsText.innerHTML = 'name : <a href = "' + repoData.gitHubAdress + '">  ' + repoData.name + ' </a><br>' + 'description : ' + repoData.description + '<br>' + 'forks : ' + repoData.forks + '<br>' + 'updated :  ' + repoData.updated_at;
+        detailsText.innerHTML = 'Name : ' + "<a href=" + repoData.html_url + ' target ="_blank" >' + repoData.name + ' </a><br>' + 'description : ' + repoData.description + '<br>' + 'forks : ' + repoData.forks + '<br>' + 'updated :  ' + repoData.updated_at;
         detailsText.className = "detailsText";
         details.appendChild(detailsText);
-        const data = await fetchJSON(repoData.contributors_url)
+        const data = await fetchJSON(repoData.contributors_url);
         for (let i = 0; i < data.length; i++) {
             const img = document.createElement('img');
             img.setAttribute('src', data[i].avatar_url);
