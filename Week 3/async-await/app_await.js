@@ -96,7 +96,8 @@ async function renderResult(repoData) {
         const contributor = document.querySelector('.contributor');
         createAndAppend('h2', contributor, { html: 'contributions' });
         createAndAppend('p', details, {
-            class: 'detailsText', html: 'Name : ' + "<a href=" + repoData.html_url + ' target ="_blank" >' + repoData.name + ' </a><br>' +
+            class: 'detailsText',
+            html: 'Name : ' + "<a href=" + repoData.html_url + ' target ="_blank" >' + repoData.name + ' </a><br>' +
                 'description : ' + repoData.description + '<br>' +
                 'forks : ' + repoData.forks + '<br>' +
                 'updated :  ' + repoData.updated_at
