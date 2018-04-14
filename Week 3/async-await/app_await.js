@@ -20,14 +20,14 @@ async function main() {
             createAndAppend('option', select, { html: repo.name, value: index });
         });
 
-        renderResult(repos[0]);
+        render(repos[0]);
         sortList(select);
 
         select.addEventListener('change', () => {
             const index = select.value;
             details.innerHTML = '';
             contributor.innerHTML = '';
-            renderResult(repos[index]);
+            render(repos[index]);
         });
 
     }
@@ -90,7 +90,7 @@ function fetchJSON(url) {
 }
 
 
-async function renderResult(repoData) {
+async function render(repoData) {
     try {
         const details = document.querySelector('.details');
         const contributor = document.querySelector('.contributor');
